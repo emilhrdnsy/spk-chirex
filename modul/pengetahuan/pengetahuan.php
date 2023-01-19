@@ -67,7 +67,7 @@ switch($_GET[act]){
           </table></form>";
 		  	$baris=mysqli_num_rows($tampil);
 	if ($_POST[Go]){
-			$numrows = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM basis_pengetahuan b,penyakit p where b.kode_penyakit=p.kode_penyakit AND p.nama_penyakit like '%$_POST[keyword]%'"));
+			$numrows = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM basis_pengetahuan b,penyakit p where b.kode_penyakit=p.id AND p.nama_penyakit like '%$_POST[keyword]%'"));
 			if ($numrows > 0){
 				echo "<div class='alert alert-success alert-dismissible'>
                 <h4><i class='icon fa fa-check'></i> Sukses!</h4>
@@ -77,12 +77,12 @@ switch($_GET[act]){
 	echo" <table class='table table-bordered' style='overflow-x=auto' cellpadding='0' cellspacing='0'>
           <thead>
             <tr>
-              <th>No</th>
-              <th>Penyakit</th>
-              <th>Gejala</th>
-              <th>MB</th>
-              <th>MD</th>
-              <th width='21%'>Aksi</th>
+              <th style='text-align:center; vertical-align: middle'>No</th>
+              <th style='text-align:center; vertical-align: middle'>Penyakit</th>
+              <th style='text-align:center; vertical-align: middle'>Gejala</th>
+              <th style='text-align:center; vertical-align: middle'>MB</th>
+              <th style='text-align:center; vertical-align: middle'>MD</th>
+              <th style='text-align:center; vertical-align: middle; width=21%'>Aksi</th>
             </tr>
           </thead>
 		  <tbody>"; 
@@ -92,7 +92,7 @@ switch($_GET[act]){
     while ($r=mysqli_fetch_array($hasil)){
 	if ($counter % 2 == 0) $warna = "dark";
 	else $warna = "light";
-	$sql = mysqli_query($conn,"SELECT * FROM gejala where kode_gejala = '$r[kode_gejala]'");
+	$sql = mysqli_query($conn,"SELECT * FROM gejala where id = '$r[id]'");
 	$rgejala=mysqli_fetch_array($sql);
        echo "<tr class='".$warna."'>
 			 <td align=center>$no</td>
@@ -120,12 +120,12 @@ switch($_GET[act]){
 	echo" <table class='table table-bordered' style='overflow-x=auto' cellpadding='0' cellspacing='0'>
           <thead>
             <tr>
-              <th>No</th>
-              <th>Penyakit</th>
-              <th>Gejala</th>
-              <th>MB</th>
-              <th>MD</th>
-              <th width='21%'>Aksi</th>
+              <th style='text-align:center; vertical-align: middle'>No</th>
+              <th style='text-align:center; vertical-align: middle'>Penyakit</th>
+              <th style='text-align:center; vertical-align: middle'>Gejala</th>
+              <th style='text-align:center; vertical-align: middle'>MB</th>
+              <th style='text-align:center; vertical-align: middle'>MD</th>
+              <th style='text-align:center; vertical-align: middle; width=21%'>Aksi</th>
             </tr>
           </thead>
 		  <tbody>
@@ -137,9 +137,9 @@ switch($_GET[act]){
     while ($r=mysqli_fetch_array($hasil)){
 	if ($counter % 2 == 0) $warna = "dark";
 	else $warna = "light";
-	$sql = mysqli_query($conn,"SELECT * FROM gejala where kode_gejala = '$r[kode_gejala]'");
+	$sql = mysqli_query($conn,"SELECT * FROM gejala where id = '$r[id]'");
 	$rgejala=mysqli_fetch_array($sql);
-	$sql2 = mysqli_query($conn,"SELECT * FROM penyakit where kode_penyakit = '$r[kode_penyakit]'");
+	$sql2 = mysqli_query($conn,"SELECT * FROM penyakit where id = '$r[id]'");
 	$rpenyakit=mysqli_fetch_array($sql2);
        echo "<tr class='".$warna."'>
 			 <td align=center>$no</td>
