@@ -1,4 +1,4 @@
-<title>Gejala - Chirexs 1.0</title>
+<title>Gejala</title>
 <?php
 
 session_start();
@@ -60,7 +60,7 @@ switch($_GET[act]){
 	echo" <table class='table table-bordered' style='overflow-x=auto' cellpadding='0' cellspacing='0'>
           <thead>
             <tr>
-              <th>No</th>
+              <th>Kode Gejala</th>
               <th>Nama Gejala</th>
               <th width='21%'>Aksi</th>
             </tr>
@@ -73,9 +73,9 @@ switch($_GET[act]){
 	if ($counter % 2 == 0) $warna = "dark";
 	else $warna = "light";
        echo "<tr class='".$warna."'>
-			 <td align=center>$no</td>
+			 <td align=center>$r[kode_gejala]</td>
 			 <td>$r[nama_gejala]</td>
-			 <td align=center><a type='button' class='btn btn-success margin' href=gejala/editgejala/$r[kode_gejala]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
+			 <td align=center><a type='button' class='btn btn-success margin' href=gejala/editgejala/$r[id]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
 	          <a type='button' class='btn btn-danger margin' href=\"JavaScript: confirmIt('Anda yakin akan menghapusnya ?','$aksi?module=gejala&act=hapus&id=$r[kode_gejala]','','','','u','n','Self','Self')\" onMouseOver=\"self.status=''; return true\" onMouseOut=\"self.status=''; return true\"><i class='fa fa-trash-o' aria-hidden='true'></i> Hapus</a>
              </td></tr>";
       $no++;
@@ -95,14 +95,14 @@ switch($_GET[act]){
 	echo" <table class='table table-bordered' style='overflow-x=auto' cellpadding='0' cellspacing='0'>
           <thead>
             <tr>
-              <th>No</th>
-              <th>Nama Gejala</th>
-              <th width='21%'>Aksi</th>
+              <th style='text-align:center; vertical-align: middle'>Kode Gejala</th>
+              <th style='text-align:center; vertical-align: middle'>Nama Gejala</th>
+              <th style='text-align:center; vertical-align: middle; width='21%' >Aksi</th>
             </tr>
           </thead>
 		  <tbody>
 		  "; 
-	$hasil = mysqli_query($conn,"SELECT * FROM gejala ORDER BY kode_gejala limit $offset,$limit");
+	$hasil = mysqli_query($conn,"SELECT * FROM gejala ORDER BY id limit $offset,$limit");
 	$no = 1;
 	$no = 1 + $offset;
 	$counter = 1;
@@ -110,10 +110,10 @@ switch($_GET[act]){
 	if ($counter % 2 == 0) $warna = "dark";
 	else $warna = "light";
        echo "<tr class='".$warna."'>
-			 <td align=center>$no</td>
+			 <td align=center>$r[kode_gejala]</td>
 			 <td>$r[nama_gejala]</td>
 			 <td align=center>
-			 <a type='button' class='btn btn-success margin' href=gejala/editgejala/$r[kode_gejala]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
+			 <a type='button' class='btn btn-success margin' href=gejala/editgejala/$r[id]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
 	          <a type='button' class='btn btn-danger margin' href=\"JavaScript: confirmIt('Anda yakin akan menghapusnya ?','$aksi?module=gejala&act=hapus&id=$r[kode_gejala]','','','','u','n','Self','Self')\" onMouseOver=\"self.status=''; return true\" onMouseOut=\"self.status=''; return true\"><i class='fa fa-trash-o' aria-hidden='true'></i> Hapus</a>
              </td></tr>";
       $no++;
@@ -174,7 +174,7 @@ switch($_GET[act]){
      break;
     
   case "editgejala":
-    $edit=mysqli_query($conn,"SELECT * FROM gejala WHERE kode_gejala='$_GET[id]'");
+    $edit=mysqli_query($conn,"SELECT * FROM gejala WHERE id='$_GET[id]'");
     $r=mysqli_fetch_array($edit);
 	
     echo "<form name=text_form method=POST action='$aksi?module=gejala&act=update' onsubmit='return Blank_TextField_Validator()'>

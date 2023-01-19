@@ -1,4 +1,4 @@
-<title>Diagnosa - Chirexs 1.0</title>
+<title>Diagnosa</title>
 <?php
 switch ($_GET['act']) {
 
@@ -111,7 +111,7 @@ switch ($_GET['act']) {
         $sql4 = mysqli_query($conn, "SELECT * FROM gejala where kode_gejala = '$key'");
         $r4 = mysqli_fetch_array($sql4);
         echo '<tr><td>' . $ig . '</td>';
-        echo '<td>G' . str_pad($r4[kode_gejala], 3, '0', STR_PAD_LEFT) . '</td>';
+        echo '<td>' . str_pad($r4[kode_gejala], 3, '0', STR_PAD_LEFT) . '</td>';
         echo '<td><span class="hasil text text-primary">' . $r4[nama_gejala] . "</span></td>";
         echo '<td><span class="kondisipilih" style="color:' . $arcolor[$kondisi] . '">' . $arkondisitext[$kondisi] . "</span></td></tr>";
       }
@@ -147,7 +147,7 @@ switch ($_GET['act']) {
 	 <div class='alert alert-success alert-dismissible'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
                 <h4><i class='icon fa fa-exclamation-triangle'></i>Perhatian !</h4>
-                Silahkan memilih gejala sesuai dengan kondisi ayam anda, anda dapat memilih kepastian kondisi ayam dari pasti tidak sampai pasti ya, jika sudah tekan tombol proses (<i class='fa fa-search-plus'></i>)  di bawah untuk melihat hasil.
+                Silahkan memilih gejala sesuai dengan kondisi tanaman lada anda, anda dapat memilih kepastian kondisi tanaman lada dari <b>pasti tidak</b> sampai <b>pasti ya</b>, jika sudah tekan tombol proses (<i class='fa fa-search-plus'></i>)  di bawah untuk melihat hasil.
               </div>
 		<form name=text_form method=POST action='diagnosa' >
            <table class='table table-bordered table-striped konsultasi'><tbody class='pilihkondisi'>
@@ -158,7 +158,7 @@ switch ($_GET['act']) {
       while ($r3 = mysqli_fetch_array($sql3)) {
         $i++;
         echo "<tr><td class=opsi>$i</td>";
-        echo "<td class=opsi>G" . str_pad($r3[kode_gejala], 3, '0', STR_PAD_LEFT) . "</td>";
+        echo "<td class=opsi>" . str_pad($r3[kode_gejala], 3, '0', STR_PAD_LEFT) . "</td>";
         echo "<td class=gejala>$r3[nama_gejala]</td>";
         echo '<td class="opsi"><select name="kondisi[]" id="sl' . $i . '" class="opsikondisi"/><option data-id="0" value="0">Pilih jika sesuai</option>';
         $s = "select * from kondisi order by id";
