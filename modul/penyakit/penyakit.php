@@ -1,4 +1,4 @@
-<title>Penyakit - Chirexs 1.0</title>
+<title>Penyakit</title>
 <?php
 
 session_start();
@@ -43,7 +43,7 @@ if (!(isset($_SESSION['username']) && isset($_SESSION['password']))) {
       if (empty($offset)) {
         $offset = 0;
       }
-      $tampil = mysqli_query($conn,"SELECT * FROM penyakit ORDER BY kode_penyakit");
+      $tampil = mysqli_query($conn,"SELECT * FROM penyakit ORDER BY id_penyakit");
       echo "<form method=POST action='?module=penyakit' name=text_form onsubmit='return Blank_TextField_Validator_Cari()'>
           <br><br><table class='table table-bordered'>
 		  <tr><td><input class='btn bg-olive margin' type=button name=tambah value='Tambah Penyakit' onclick=\"window.location.href='penyakit/tambahpenyakit';\"><input type=text name='keyword' style='margin-left: 10px;' placeholder='Ketik dan tekan cari...' class='form-control' value='$_POST[keyword]' /> <input class='btn bg-olive margin' type=submit value='   Cari   ' name=Go></td> </tr>
@@ -77,11 +77,11 @@ if (!(isset($_SESSION['username']) && isset($_SESSION['password']))) {
             else
               $warna = "light";
             echo "<tr class='" . $warna . "'>
-            <td align=center>P$r[kode_penyakit]</td>
+            <td align=center>P$no</td>
             <td>$r[nama_penyakit]</td>
             <td>$r[det_penyakit]</td>
             <td>$r[srn_penyakit]</td>
-            <td align=center><a type='button' class='btn btn-block btn-success' href=penyakit/editpenyakit/$r[id]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
+            <td align=center><a type='button' class='btn btn-block btn-success' href=penyakit/editpenyakit/$r[id_penyakit]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
 	          <a type='button' class='btn btn-block btn-danger' href=\"JavaScript: confirmIt('Anda yakin akan menghapusnya ?','$aksi?module=penyakit&act=hapus&id=$r[id]','','','','u','n','Self','Self')\" onMouseOver=\"self.status=''; return true\" onMouseOut=\"self.status=''; return true\"> <i class='fa fa-trash-o' aria-hidden='true'></i> Hapus</a>
              </td></tr>";
             $no++;
@@ -110,7 +110,7 @@ if (!(isset($_SESSION['username']) && isset($_SESSION['password']))) {
           </thead>
 		  <tbody>
 		  ";
-          $hasil = mysqli_query($conn,"SELECT * FROM penyakit ORDER BY id limit $offset,$limit");
+          $hasil = mysqli_query($conn,"SELECT * FROM penyakit ORDER BY id_penyakit limit $offset,$limit");
           $no = 1;
           $no = 1 + $offset;
           $counter = 1;
@@ -120,12 +120,12 @@ if (!(isset($_SESSION['username']) && isset($_SESSION['password']))) {
             else
               $warna = "light";
             echo "<tr class='" . $warna . "'>
-              <td align=center>$r[kode_penyakit]</td>
+              <td align=center>P$no</td>
               <td>$r[nama_penyakit]</td>
               <td>$r[det_penyakit]</td>
               <td>$r[srn_penyakit]</td>
               <td align=center>
-              <a type='button' class='btn btn-block btn-success' href=penyakit/editpenyakit/$r[id]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
+              <a type='button' class='btn btn-block btn-success' href=penyakit/editpenyakit/$r[id_penyakit]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
                     <a type='button' class='btn btn-block btn-danger' href=\"JavaScript: confirmIt('Anda yakin akan menghapusnya ?','$aksi?module=penyakit&act=hapus&id=$r[kode_penyakit]','','','','u','n','Self','Self')\" onMouseOver=\"self.status=''; return true\" onMouseOut=\"self.status=''; return true\">
                 <i class='fa fa-trash-o' aria-hidden='true'></i> Hapus</a>
              </td></tr>";
@@ -187,7 +187,7 @@ if (!(isset($_SESSION['username']) && isset($_SESSION['password']))) {
       break;
 
     case "editpenyakit":
-      $edit = mysqli_query($conn,"SELECT * FROM penyakit WHERE id='$_GET[id]'");
+      $edit = mysqli_query($conn,"SELECT * FROM penyakit WHERE id_penyakit='$_GET[id]'");
       $r = mysqli_fetch_array($edit);
       if ($r[gambar]) {
         $gambar = 'gambar/penyakit/' . $r[gambar];
@@ -196,7 +196,7 @@ if (!(isset($_SESSION['username']) && isset($_SESSION['password']))) {
       }
 
       echo "<form name=text_form method=POST action='$aksi?module=penyakit&act=update' onsubmit='return Blank_TextField_Validator()' enctype='multipart/form-data'>
-          <input type=hidden name=id value='$r[kode_penyakit]'>
+          <input type=hidden name=id value='$r[id_penyakit]'>
           <br><br><table class='table table-bordered'>
 		  <tr><td width=120>Nama Penyakit</td><td><input autocomplete='off' type=text class='form-control' name='nama_penyakit' size=30 value=\"$r[nama_penyakit]\"></td></tr>
 		  <tr><td width=120>Detail Penyakit</td><td><textarea rows='4' cols='50' type=text class='form-control' name='det_penyakit'>$r[det_penyakit]</textarea></td></tr>

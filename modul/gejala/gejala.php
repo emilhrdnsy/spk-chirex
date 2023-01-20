@@ -42,7 +42,7 @@ switch($_GET[act]){
 	if (empty ($offset)) {
 		$offset = 0;
 	}
-  $tampil=mysqli_query($conn,"SELECT * FROM gejala ORDER BY kode_gejala");
+  $tampil=mysqli_query($conn,"SELECT * FROM gejala ORDER BY id_gejala");
 	echo "<form method=POST action='?module=gejala' name=text_form onsubmit='return Blank_TextField_Validator_Cari()'>
           <br><br><table class='table table-bordered'>
 		  <tr><td><input class='btn bg-olive margin' type=button name=tambah value='Tambah Gejala' onclick=\"window.location.href='gejala/tambahgejala';\"><input type=text name='keyword' style='margin-left: 10px;' placeholder='Ketik dan tekan cari...' class='form-control' value='$_POST[keyword]' /> <input class='btn bg-olive margin' type=submit value='   Cari   ' name=Go></td> </tr>
@@ -73,10 +73,10 @@ switch($_GET[act]){
 	if ($counter % 2 == 0) $warna = "dark";
 	else $warna = "light";
        echo "<tr class='".$warna."'>
-			 <td align=center>$r[kode_gejala]</td>
+			 <td align=center>G$no</td>
 			 <td>$r[nama_gejala]</td>
-			 <td align=center><a type='button' class='btn btn-success margin' href=gejala/editgejala/$r[id]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
-	          <a type='button' class='btn btn-danger margin' href=\"JavaScript: confirmIt('Anda yakin akan menghapusnya ?','$aksi?module=gejala&act=hapus&id=$r[kode_gejala]','','','','u','n','Self','Self')\" onMouseOver=\"self.status=''; return true\" onMouseOut=\"self.status=''; return true\"><i class='fa fa-trash-o' aria-hidden='true'></i> Hapus</a>
+			 <td align=center><a type='button' class='btn btn-success margin' href=gejala/editgejala/$r[id_gejala]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
+	          <a type='button' class='btn btn-danger margin' href=\"JavaScript: confirmIt('Anda yakin akan menghapusnya ?','$aksi?module=gejala&act=hapus&id=$r[id_gejala]','','','','u','n','Self','Self')\" onMouseOver=\"self.status=''; return true\" onMouseOut=\"self.status=''; return true\"><i class='fa fa-trash-o' aria-hidden='true'></i> Hapus</a>
              </td></tr>";
       $no++;
 	  $counter++;
@@ -86,7 +86,7 @@ switch($_GET[act]){
 			else{
 				echo "<div class='alert alert-danger alert-dismissible'>
                 <h4><i class='icon fa fa-ban'></i> Gagal!</h4>
-                Maaf, Gejala yang anda cari tidak ditemukan , silahkan inputkan dengan benar dan cari kembali.
+                Maaf, Gejala yang anda cari tidak ditemukan, silahkan inputkan dengan benar dan cari kembali.
               </div>";
 			}
 		}else{
@@ -102,7 +102,7 @@ switch($_GET[act]){
           </thead>
 		  <tbody>
 		  "; 
-	$hasil = mysqli_query($conn,"SELECT * FROM gejala ORDER BY id limit $offset,$limit");
+	$hasil = mysqli_query($conn,"SELECT * FROM gejala ORDER BY id_gejala limit $offset,$limit");
 	$no = 1;
 	$no = 1 + $offset;
 	$counter = 1;
@@ -110,11 +110,11 @@ switch($_GET[act]){
 	if ($counter % 2 == 0) $warna = "dark";
 	else $warna = "light";
        echo "<tr class='".$warna."'>
-			 <td align=center>$r[kode_gejala]</td>
+			 <td align=center>G$no</td>
 			 <td>$r[nama_gejala]</td>
 			 <td align=center>
-			 <a type='button' class='btn btn-success margin' href=gejala/editgejala/$r[id]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
-	          <a type='button' class='btn btn-danger margin' href=\"JavaScript: confirmIt('Anda yakin akan menghapusnya ?','$aksi?module=gejala&act=hapus&id=$r[kode_gejala]','','','','u','n','Self','Self')\" onMouseOver=\"self.status=''; return true\" onMouseOut=\"self.status=''; return true\"><i class='fa fa-trash-o' aria-hidden='true'></i> Hapus</a>
+			 <a type='button' class='btn btn-success margin' href=gejala/editgejala/$r[id_gejala]><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Ubah </a> &nbsp;
+	          <a type='button' class='btn btn-danger margin' href=\"JavaScript: confirmIt('Anda yakin akan menghapusnya ?','$aksi?module=gejala&act=hapus&id=$r[id_gejala]','','','','u','n','Self','Self')\" onMouseOver=\"self.status=''; return true\" onMouseOut=\"self.status=''; return true\"><i class='fa fa-trash-o' aria-hidden='true'></i> Hapus</a>
              </td></tr>";
       $no++;
 	  $counter++;
@@ -166,24 +166,24 @@ switch($_GET[act]){
   
   case "tambahgejala":
     echo "<form name=text_form method=POST action='$aksi?module=gejala&act=input' onsubmit='return Blank_TextField_Validator()'>
-          <br><br><table class='table table-bordered'>
-		  <tr><td width=120>Nama Gejala</td><td><input type=text autocomplete='off' placeholder='Masukkan gejala baru...' class='form-control' name='nama_gejala' size=30></td></tr>
-		  <tr><td></td><td><input class='btn btn-success' type=submit name=submit value='Simpan' >
-		  <input class='btn btn-danger' type=button name=batal value='Batal' onclick=\"window.location.href='?module=gejala';\"></td></tr>
-          </table></form>";
-     break;
+		<br><br><table class='table table-bordered'>
+		<tr><td width=120>Nama Gejala</td><td><input type=text autocomplete='off' placeholder='Masukkan gejala baru...' class='form-control' name='nama_gejala' size=30></td></tr>
+		<tr><td></td><td><input class='btn btn-success' type=submit name=submit value='Simpan' >
+		<input class='btn btn-danger' type=button name=batal value='Batal' onclick=\"window.location.href='?module=gejala';\"></td></tr>
+		</table></form>";
+    break;
     
   case "editgejala":
-    $edit=mysqli_query($conn,"SELECT * FROM gejala WHERE id='$_GET[id]'");
+    $edit=mysqli_query($conn,"SELECT * FROM gejala WHERE id_gejala='$_GET[id]'");
     $r=mysqli_fetch_array($edit);
 	
     echo "<form name=text_form method=POST action='$aksi?module=gejala&act=update' onsubmit='return Blank_TextField_Validator()'>
-          <input type=hidden name=id value='$r[kode_gejala]'>
-          <br><br><table class='table table-bordered'>
-		  <tr><td width=120>Nama Gejala</td><td><input autocomplete='off' type=text class='form-control' name='nama_gejala' size=30 value=\"$r[nama_gejala]\"></td></tr>
-          <tr><td></td><td><input class='btn btn-success' type=submit name=submit value='Simpan' >
-		  <input class='btn btn-danger' type=button value='Batal' onclick=\"window.location.href='?module=gejala';\"></td></tr>
-          </table></form>";
+		<input type=hidden name=id value='$r[id_gejala]'>
+		<br><br><table class='table table-bordered'>
+		<tr><td width=120>Nama Gejala</td><td><input autocomplete='off' type=text class='form-control' name='nama_gejala' size=30 value=\"$r[nama_gejala]\"></td></tr>
+		<tr><td></td><td><input class='btn btn-success' type=submit name=submit value='Simpan' >
+		<input class='btn btn-danger' type=button value='Batal' onclick=\"window.location.href='?module=gejala';\"></td></tr>
+		</table></form>";
     break;  
 }
 ?>

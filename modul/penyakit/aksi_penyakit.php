@@ -27,11 +27,7 @@ if (!(isset($_SESSION['username']) && isset($_SESSION['password']))) {
     $srn_penyakit = $_POST[srn_penyakit];
     $fileName = $_FILES['gambar']['name'];
     move_uploaded_file($_FILES['gambar']['tmp_name'], "../../gambar/penyakit/" . $_FILES['gambar']['name']);
-    mysqli_query($conn,"INSERT INTO penyakit(
-			nama_penyakit,det_penyakit,srn_penyakit,gambar) 
-	    VALUES(
-			'$nama_penyakit','$det_penyakit','$srn_penyakit','$fileName')");
-
+    mysqli_query($conn,"INSERT INTO penyakit(nama_penyakit,det_penyakit,srn_penyakit,gambar) VALUES('$nama_penyakit','$det_penyakit','$srn_penyakit','$fileName')");
     header('location:../../index.php?module=' . $module);
   }
 
@@ -50,13 +46,13 @@ if (!(isset($_SESSION['username']) && isset($_SESSION['password']))) {
 					det_penyakit   = '$det_penyakit',
 					srn_penyakit   = '$srn_penyakit',
           gambar   = '$fileName'
-    WHERE kode_penyakit       = '$_POST[id]'");
+    WHERE id_penyakit       = '$_POST[id]'");
     } else {
       mysqli_query($conn,"UPDATE penyakit SET
 					nama_penyakit   = '$nama_penyakit',
 					det_penyakit   = '$det_penyakit',
 					srn_penyakit   = '$srn_penyakit'
-    WHERE kode_penyakit       = '$_POST[id]'");
+    WHERE id_penyakit       = '$_POST[id]'");
     }
     header('location:../../index.php?module=' . $module);
   }
